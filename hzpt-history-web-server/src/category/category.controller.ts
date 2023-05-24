@@ -11,11 +11,11 @@ import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
-@Controller('api/get/category')
+@Controller('api')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  @Post()
+  @Post('/set/category')
   async create(@Body() createCategoryDto: CreateCategoryDto) {
     createCategoryDto.col = 1;
     const res = await this.categoryService.create(createCategoryDto);
@@ -32,7 +32,7 @@ export class CategoryController {
     }
   }
 
-  @Post('/all')
+  @Post('/set/category/all')
   async createAll(@Body() createCategoryDto: CreateCategoryDto[]) {
     try {
       createCategoryDto.forEach(async (item) => {
@@ -54,7 +54,7 @@ export class CategoryController {
     }
   }
 
-  @Get()
+  @Get('/get/category')
   async findAll() {
     return {
       success: true,
@@ -63,7 +63,7 @@ export class CategoryController {
     };
   }
 
-  @Patch(':id')
+  @Patch('/set/category/:id')
   async update(
     @Param('id') id: number,
     @Body() updateCategoryDto: UpdateCategoryDto,
@@ -82,7 +82,7 @@ export class CategoryController {
     }
   }
 
-  @Delete(':id')
+  @Delete('/set/category/:id')
   async remove(@Param('id') id: number) {
     const category = await this.categoryService.findOne(id);
     if (category == null) {

@@ -16,7 +16,7 @@
         <el-icon><Position /></el-icon>
         <span>学院列表</span>
       </el-menu-item>
-      <el-menu-item index="/">
+      <el-menu-item index="/list">
         <el-icon><View /></el-icon>
         <span>照片列表</span>
       </el-menu-item>
