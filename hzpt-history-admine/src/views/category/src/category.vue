@@ -21,12 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
 import { useAppStore } from '@/store/app'
-
 const appStore = useAppStore()
-
-onMounted(() => appStore.useCategoryData())
 
 const rowClick = (row: any, column: any) => {
   console.log('row--->', row.label)

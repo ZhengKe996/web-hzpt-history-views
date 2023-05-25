@@ -58,7 +58,7 @@ export const ALL_CATEGORY_ITEM = {
 }
 
 export const ALL_Grade_ITEM = {
-  id: 'all',
+  id: '',
   grade: '全部',
 }
 

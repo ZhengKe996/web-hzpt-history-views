@@ -13,35 +13,37 @@ import { CreateListDto } from './dto/create-list.dto';
 import { UpdateListDto } from './dto/update-list.dto';
 import { QueryDto } from './dto/list-query.dto';
 
-@Controller('api/get')
+@Controller('api')
 export class ListController {
   constructor(private readonly listService: ListService) {}
 
-  @Post('/list')
+  @Post('/set/list')
   async create(@Body() createListDto: CreateListDto) {
-    createListDto.panelimgurl = '';
-    const res = await this.listService.create(createListDto);
-    if (res.generatedMaps.length > 0)
-      return {
-        success: true,
-        message: 'OK',
-      };
-    else {
-      return {
-        success: false,
-        message: 'Error',
-      };
+    try {
+      createListDto.panelimgurl = '';
+      const res = await this.listService.create(createListDto);
+      if (res.generatedMaps.length > 0) {
+        return {
+          success: true,
+          message: 'OK',
+        };
+      }
+    } catch (error) {
+      return { success: false, message: 'Error' };
     }
   }
 
-  @Post('/list-all')
+  @Post('/set/list-all')
   async createAll(@Body() createLists: CreateListDto[]) {
     try {
       createLists.forEach(async (item) => {
         item.panelimgurl = '';
         const { generatedMaps } = await this.listService.create(item);
         if (generatedMaps.length <= 0) {
-          new Error();
+          return {
+            success: false,
+            message: 'Error',
+          };
         }
       });
       return {
@@ -54,83 +56,110 @@ export class ListController {
         message: 'Error',
       };
     }
-
-    // createListDto.panelimgurl = '';
-    // const res = await this.listService.create(createListDto);
-    // if (res.generatedMaps.length > 0)
-    //   return {
-    //     success: true,
-    //     message: 'OK',
-    //   };
-    // else {
-    //   return {
-    //     success: false,
-    //     message: 'Error',
-    //   };
-    // }
   }
 
-  @Get('/list')
+  @Get('/get/list')
   async findAll(@Query() queryInfoDto: QueryDto) {
-    const res = await this.listService.findAll(queryInfoDto);
-    return {
-      success: true,
-      message: 'OK',
-      data: res.slice(0, 20),
-    };
+    try {
+      const res = await this.listService.findAll(queryInfoDto);
+      return {
+        success: true,
+        message: 'OK',
+        data: res,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Error',
+      };
+    }
   }
 
-  @Get('/grade')
+  @Get('/get/grade')
   async findGradeAll() {
-    const res = await this.listService.findGradeAll();
-    return {
-      success: true,
-      message: 'OK',
-      data: res,
-    };
+    try {
+      const res = await this.listService.findGradeAll();
+      return {
+        success: true,
+        message: 'OK',
+        data: res,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Error',
+      };
+    }
   }
 
-  @Get('/list/:id')
+  @Get('/get/indexes')
+  async findIndexesAll() {
+    try {
+      const result = await this.listService.findCategoryAll();
+
+      return {
+        success: true,
+        message: 'OK',
+        data: result,
+      };
+    } catch (error) {
+      return { success: false, message: 'Error' };
+    }
+  }
+
+  @Get('/get/list/:id')
   async findOne(@Param('id') id: number) {
-    const info = await this.listService.findOne(id);
-    if (info == null) {
+    try {
+      const info = await this.listService.findOne(id);
+      if (info == null) {
+        return { success: false, message: 'Error' };
+      }
+      return {
+        success: true,
+        message: 'OK',
+        data: info,
+      };
+    } catch (error) {
       return { success: false, message: 'Error' };
     }
-    return {
-      success: true,
-      message: 'OK',
-      data: info,
-    };
   }
 
-  @Patch('/list/:id')
+  @Patch('/set/list/:id')
   async update(@Param('id') id: number, @Body() updateListDto: UpdateListDto) {
-    const info = await this.listService.findOne(id);
-    if (info == null) {
-      return { success: false, message: 'Error' };
-    }
+    try {
+      const info = await this.listService.findOne(id);
+      if (info == null) {
+        return { success: false, message: 'Error' };
+      }
 
-    const res = await this.listService.update(id, updateListDto);
-    if (res.affected > 0) {
-      return {
-        success: true,
-        message: 'OK',
-      };
+      const res = await this.listService.update(id, updateListDto);
+      if (res.affected > 0) {
+        return {
+          success: true,
+          message: 'OK',
+        };
+      }
+    } catch (error) {
+      return { success: false, message: 'Error' };
     }
   }
 
-  @Delete('/list/:id')
+  @Delete('/set/list/:id')
   async remove(@Param('id') id: null) {
-    const info = await this.listService.findOne(id);
-    if (info == null) {
+    try {
+      const info = await this.listService.findOne(id);
+      if (info == null) {
+        return { success: false, message: 'Error' };
+      }
+      const res = await this.listService.remove(id);
+      if (res.affected > 0) {
+        return {
+          success: true,
+          message: 'OK',
+        };
+      }
+    } catch (error) {
       return { success: false, message: 'Error' };
-    }
-    const res = await this.listService.remove(id);
-    if (res.affected > 0) {
-      return {
-        success: true,
-        message: 'OK',
-      };
     }
   }
 }

@@ -17,14 +17,17 @@ export class CategoryController {
 
   @Post('/set/category')
   async create(@Body() createCategoryDto: CreateCategoryDto) {
-    createCategoryDto.col = 1;
-    const res = await this.categoryService.create(createCategoryDto);
-    if (res.generatedMaps.length > 0)
+    try {
+      createCategoryDto.col = 1;
+      const res = await this.categoryService.create(createCategoryDto);
+      if (res.generatedMaps.length <= 0) {
+        new Error();
+      }
       return {
         success: true,
         message: 'OK',
       };
-    else {
+    } catch (error) {
       return {
         success: false,
         message: 'Error',
@@ -56,11 +59,18 @@ export class CategoryController {
 
   @Get('/get/category')
   async findAll() {
-    return {
-      success: true,
-      message: 'OK',
-      data: await this.categoryService.findAll(),
-    };
+    try {
+      return {
+        success: true,
+        message: 'OK',
+        data: await this.categoryService.findAll(),
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Error',
+      };
+    }
   }
 
   @Patch('/set/category/:id')
@@ -68,32 +78,40 @@ export class CategoryController {
     @Param('id') id: number,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    const category = await this.categoryService.findOne(id);
-    if (category == null) {
-      return { success: false, message: 'Error' };
-    }
+    try {
+      const category = await this.categoryService.findOne(id);
+      if (category == null) {
+        return { success: false, message: 'Error' };
+      }
 
-    const res = await this.categoryService.update(id, updateCategoryDto);
-    if (res.affected > 0) {
-      return {
-        success: true,
-        message: 'OK',
-      };
+      const res = await this.categoryService.update(id, updateCategoryDto);
+      if (res.affected > 0) {
+        return {
+          success: true,
+          message: 'OK',
+        };
+      }
+    } catch (error) {
+      return { success: false, message: 'Error' };
     }
   }
 
   @Delete('/set/category/:id')
   async remove(@Param('id') id: number) {
-    const category = await this.categoryService.findOne(id);
-    if (category == null) {
+    try {
+      const category = await this.categoryService.findOne(id);
+      if (category == null) {
+        return { success: false, message: 'Error' };
+      }
+      const res = await this.categoryService.remove(id);
+      if (res.affected > 0) {
+        return {
+          success: true,
+          message: 'OK',
+        };
+      }
+    } catch (error) {
       return { success: false, message: 'Error' };
-    }
-    const res = await this.categoryService.remove(id);
-    if (res.affected > 0) {
-      return {
-        success: true,
-        message: 'OK',
-      };
     }
   }
 }

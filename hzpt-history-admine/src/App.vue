@@ -22,7 +22,17 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
+import { useAppStore } from '@/store/app'
 import NavMenu from './components/nav-menu'
+
+const appStore = useAppStore()
+
+onMounted(() => {
+  appStore.useCategoryData()
+  appStore.useInfoData()
+  appStore.useIndexesData()
+})
 </script>
 
 <style lang="scss" scoped>

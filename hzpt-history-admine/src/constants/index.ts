@@ -1,12 +1,12 @@
 export interface Category {
   col?: number
-  id: string
+  id?: string
   name: string
   urlname?: string
 }
 
 export interface Info {
-  id: number
+  id?: number
   category: string
   grade: string
 
