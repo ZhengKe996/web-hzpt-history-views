@@ -18,6 +18,21 @@ const router = createRouter({
       component: () => import('@/views/category'),
     },
     {
+      path: '/add-category',
+      name: 'add-category',
+      component: () => import('@/views/add-category'),
+    },
+    {
+      path: '/change-category',
+      name: 'change-category',
+      component: () => import('@/views/change-category'),
+    },
+    {
+      path: '/add-info',
+      name: 'add-info',
+      component: () => import('@/views/add-info'),
+    },
+    {
       path: '/404',
       name: '404',
       component: () => import('@/views/404'),

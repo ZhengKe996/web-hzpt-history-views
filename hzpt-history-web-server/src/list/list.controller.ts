@@ -75,6 +75,10 @@ export class ListController {
     }
   }
 
+  /**
+   * 前端查年级
+   * @returns
+   */
   @Get('/get/grade')
   async findGradeAll() {
     try {
@@ -92,6 +96,10 @@ export class ListController {
     }
   }
 
+  /**
+   * 查学院+年级
+   * @returns
+   */
   @Get('/get/indexes')
   async findIndexesAll() {
     try {

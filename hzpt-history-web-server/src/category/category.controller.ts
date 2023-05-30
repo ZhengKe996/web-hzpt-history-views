@@ -21,7 +21,7 @@ export class CategoryController {
       createCategoryDto.col = 1;
       const res = await this.categoryService.create(createCategoryDto);
       if (res.generatedMaps.length <= 0) {
-        new Error();
+        throw new Error();
       }
       return {
         success: true,

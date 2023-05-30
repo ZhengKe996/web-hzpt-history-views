@@ -29,7 +29,10 @@ export const setCategory = (category: Category) => {
  *
  * @returns 修改学院信息
  */
-export const changeCategory = (id: number | string, category: Category) => {
+export const changeCategory = (
+  id: number | string | undefined,
+  category: Category
+) => {
   return Service({
     method: 'PATCH',
     url: `/set/category/${id}`,
@@ -67,8 +70,8 @@ export const getGrade = () => {
  *
  * @returns 获取信息列表
  */
-export const getInfoList = () => {
-  return Service({ url: '/get/list' })
+export const getInfoList = (data?: any) => {
+  return Service({ url: '/get/list', params: data })
 }
 
 /**

@@ -2,12 +2,13 @@ import { defineStore } from 'pinia'
 
 import { Category, Info } from '@/constants'
 
-import { getCategory, getInfoList, getIndexes } from '@/api'
+import { getCategory, getInfoList, getIndexes, changeCategory } from '@/api'
 
 export interface AppState {
   categorys: Category[]
   infoLists: Info[]
   indexes: { category: string; grades: any[] }[]
+  changeCategory: Category
 }
 
 export const useAppStore = defineStore({
@@ -17,20 +18,27 @@ export const useAppStore = defineStore({
       categorys: [],
       infoLists: [],
       indexes: [],
+      changeCategory: {
+        name: '',
+        urlname: '',
+      },
     }
   },
   getters: {
     /**
      * navigationBar 数据源
      */
-    getCategorys(): any[] {
+    getCategorys(): Category[] {
       return this.categorys
     },
-    getInfos(): any[] {
+    getInfos(): Info[] {
       return this.infoLists
     },
     getIndexes(): any[] {
       return this.indexes
+    },
+    getChangeCategory(): Category {
+      return this.changeCategory
     },
   },
   actions: {
@@ -42,13 +50,13 @@ export const useAppStore = defineStore({
     setCategorys(newCategorys: any[]) {
       this.categorys = [...newCategorys]
     },
-    async useInfoData() {
-      const { data } = await getInfoList()
-      // console.log(data)
+    async useInfoData(query?: any) {
+      const { data } = await getInfoList(query)
       this.setInfos(data)
     },
     setInfos(news: any[]) {
-      this.infoLists = [...news]
+      this.infoLists = news
+      console.log('useInfoData', this.infoLists)
     },
     async useIndexesData() {
       const { data } = await getIndexes()
@@ -57,6 +65,13 @@ export const useAppStore = defineStore({
     },
     setIndexes(newList: any[]) {
       this.indexes = [...newList]
+    },
+    changeCategoryAction(category: Category) {
+      this.changeCategory = category
+    },
+    changeCategoryInfo(category: Category) {
+      this.changeCategory = category
+      return changeCategory(category.id, category)
     },
   },
 })
