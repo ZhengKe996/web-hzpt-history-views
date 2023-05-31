@@ -2,13 +2,20 @@ import { defineStore } from 'pinia'
 
 import { Category, Info } from '@/constants'
 
-import { getCategory, getInfoList, getIndexes, changeCategory } from '@/api'
+import {
+  getCategory,
+  getInfoList,
+  getIndexes,
+  changeCategory,
+  changeInfoByOne,
+} from '@/api'
 
 export interface AppState {
   categorys: Category[]
   infoLists: Info[]
   indexes: { category: string; grades: any[] }[]
   changeCategory: Category
+  changeInfo: Info
 }
 
 export const useAppStore = defineStore({
@@ -21,6 +28,19 @@ export const useAppStore = defineStore({
       changeCategory: {
         name: '',
         urlname: '',
+      },
+      changeInfo: {
+        id: 0,
+        category: '',
+        grade: '',
+        classname: '',
+        description: '',
+        photo: '',
+        photoDownLink: '',
+        photoWidth: 0,
+        photoHeight: 0,
+        photoType: '',
+        panelimgurl: '',
       },
     }
   },
@@ -40,11 +60,13 @@ export const useAppStore = defineStore({
     getChangeCategory(): Category {
       return this.changeCategory
     },
+    getChangeInfo(): Info {
+      return this.changeInfo
+    },
   },
   actions: {
     async useCategoryData() {
       const { data } = await getCategory()
-      // console.log(data)
       this.setCategorys(data)
     },
     setCategorys(newCategorys: any[]) {
@@ -56,11 +78,9 @@ export const useAppStore = defineStore({
     },
     setInfos(news: any[]) {
       this.infoLists = news
-      console.log('useInfoData', this.infoLists)
     },
     async useIndexesData() {
       const { data } = await getIndexes()
-      // console.log(data)
       this.setIndexes(data)
     },
     setIndexes(newList: any[]) {
@@ -72,6 +92,13 @@ export const useAppStore = defineStore({
     changeCategoryInfo(category: Category) {
       this.changeCategory = category
       return changeCategory(category.id, category)
+    },
+    changeInfoAction(info: Info) {
+      this.changeInfo = info
+    },
+    changeCurrentInfo(info: Info) {
+      this.changeInfo = info
+      return changeInfoByOne(info.id, info)
     },
   },
 })

@@ -33,6 +33,11 @@ const router = createRouter({
       component: () => import('@/views/add-info'),
     },
     {
+      path: '/change-info',
+      name: 'change-info',
+      component: () => import('@/views/change-info'),
+    },
+    {
       path: '/404',
       name: '404',
       component: () => import('@/views/404'),

@@ -6,7 +6,7 @@ export interface Category {
 }
 
 export interface Info {
-  id?: number
+  id: number
   category: string
   grade: string
 

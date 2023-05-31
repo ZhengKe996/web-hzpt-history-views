@@ -4,7 +4,7 @@
       <Menus :width="4" :indexes="appStore.getIndexes" @on-click="itemClick" />
       <el-col :span="20">
         <el-button type="primary" class="mb-2" @click="add"
-          >新增学院信息</el-button
+          >新增毕业照信息</el-button
         >
         <el-table
           :data="tableData()"
@@ -95,6 +95,7 @@ let query = {}
 const resetQuery = async (newQuery: any) => {
   query = { ...query, ...newQuery }
   appStore.useInfoData(query)
+  appStore.useIndexesData()
 }
 
 const rowClick = (value: any, column: any) => {
@@ -116,6 +117,8 @@ const rowClick = (value: any, column: any) => {
     })
   } else if (column.label == Change) {
     console.log(Change)
+    appStore.changeInfoAction(value)
+    router.push({ path: 'change-info' })
   }
 }
 

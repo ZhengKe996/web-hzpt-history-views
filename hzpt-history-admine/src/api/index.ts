@@ -21,7 +21,6 @@ export const getIndexes = () => {
  * @returns 设置学院信息
  */
 export const setCategory = (category: Category) => {
-  console.log(setCategory)
   return Service({ method: 'POST', url: '/set/category', data: category })
 }
 
@@ -48,14 +47,6 @@ export const deleteCategory = (id: number) => {
     method: 'DELETE',
     url: `/set/category/${id}`,
   })
-}
-
-/**
- *
- * @returns 设置图片
- */
-export const setImage = () => {
-  return Service({ method: 'POST', url: '/set/upload-image' })
 }
 
 /**
@@ -94,7 +85,7 @@ export const setInfoByOne = (info: Info) => {
  *
  * @returns 修改信息（单）
  */
-export const changeInfoByOne = (id: string | number, info: Info) => {
+export const changeInfoByOne = (id: number, info: Info) => {
   return Service({ method: 'PATCH', url: `/set/list/${id}`, data: info })
 }
 

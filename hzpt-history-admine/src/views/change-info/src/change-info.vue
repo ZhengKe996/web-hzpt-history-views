@@ -27,7 +27,7 @@
         <el-input type="textarea" :rows="2" v-model="form.description" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">新增</el-button>
+        <el-button type="primary" @click="onSubmit">修改</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -37,11 +37,12 @@
 import { onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useAppStore } from '@/store/app'
-import { setInfoByOne } from '@/api'
 import { Info } from '@/constants'
-
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const appStore = useAppStore()
 const form = ref<Info>({
+  id: 0,
   category: '',
   grade: '',
   classname: '',
@@ -54,22 +55,23 @@ const form = ref<Info>({
   panelimgurl: '',
 })
 const onSubmit = async () => {
-  const res = await setInfoByOne(form.value)
+  const res = await appStore.changeCurrentInfo(form.value)
   if ((res as any)?.success) {
     ElMessage({
-      message: '新增学院成功',
+      message: '修改学院信息成功',
       type: 'success',
     })
-    appStore.useInfoData()
-    appStore.useIndexesData()
+    router.back()
   } else {
     ElMessage({
-      message: '失败，请检查网络',
+      message: '更新学院信息失败，请检查网络',
       type: 'warning',
     })
   }
 }
-
+onMounted(() => {
+  form.value = appStore.getChangeInfo
+})
 const handleAvatarSuccess = (response: any, file: any) => {
   if (response.success) {
     form.value.photo = `http://127.0.0.1:7001/${response.data.imgUrl}`
