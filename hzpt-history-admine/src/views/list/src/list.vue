@@ -27,7 +27,7 @@
             align="center"
             width="100"
           />
-          <el-table-column label="毕业照">
+          <el-table-column align="center" label="毕业照">
             <template #default="scope">
               <div class="w-16 h-8 m-0 p-0 mx-auto">
                 <img v-preview :src="scope.row.photo" />

@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
   routes: [
@@ -49,7 +49,7 @@ const router = createRouter({
       redirect: '/404',
     },
   ],
-  history: createWebHistory(),
+  history: createWebHashHistory(),
 })
 
 export default router
