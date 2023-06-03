@@ -23,6 +23,11 @@ const router = createRouter({
       component: () => import('@/views/add-category'),
     },
     {
+      path: '/add-category-list',
+      name: 'add-category-list',
+      component: () => import('@/views/add-category-list'),
+    },
+    {
       path: '/change-category',
       name: 'change-category',
       component: () => import('@/views/change-category'),
@@ -31,6 +36,11 @@ const router = createRouter({
       path: '/add-info',
       name: 'add-info',
       component: () => import('@/views/add-info'),
+    },
+    {
+      path: '/add-info-list',
+      name: 'add-info-list',
+      component: () => import('@/views/add-info-list'),
     },
     {
       path: '/change-info',

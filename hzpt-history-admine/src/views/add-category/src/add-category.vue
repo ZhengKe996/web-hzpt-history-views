@@ -4,11 +4,9 @@
       <el-form-item label="学院名称：">
         <el-input v-model="form.name" />
       </el-form-item>
-      <el-form-item label="英文缩写：">
-        <el-input v-model="form.urlname" />
-      </el-form-item>
+
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">修改</el-button>
+        <el-button type="primary" @click="onSubmit">新增</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -23,7 +21,7 @@ import { setCategory } from '@/api'
 import { Category } from '@/constants'
 const router = useRouter()
 const appStore = useAppStore()
-const form = ref<Category>({ name: '', urlname: '' })
+const form = ref<Category>({ name: '' })
 
 const onSubmit = async () => {
   const res = await setCategory(form.value)
@@ -32,8 +30,10 @@ const onSubmit = async () => {
       message: '新增学院成功',
       type: 'success',
     })
-    appStore.useCategoryData()
-    router.back()
+    setTimeout(() => {
+      appStore.useCategoryData()
+      router.back()
+    }, 500)
   } else {
     ElMessage({
       message: '失败，请检查网络',

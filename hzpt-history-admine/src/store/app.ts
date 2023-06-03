@@ -27,7 +27,6 @@ export const useAppStore = defineStore({
       indexes: [],
       changeCategory: {
         name: '',
-        urlname: '',
       },
       changeInfo: {
         id: 0,

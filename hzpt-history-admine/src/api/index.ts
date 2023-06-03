@@ -26,6 +26,14 @@ export const setCategory = (category: Category) => {
 
 /**
  *
+ * @returns 设置学院信息（列表）
+ */
+export const setCategorys = (categorys: Category[]) => {
+  return Service({ method: 'POST', url: '/set/category/all', data: categorys })
+}
+
+/**
+ *
  * @returns 修改学院信息
  */
 export const changeCategory = (

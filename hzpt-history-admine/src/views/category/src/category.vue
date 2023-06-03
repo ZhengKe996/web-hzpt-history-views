@@ -1,8 +1,11 @@
 <template>
-  <div class="w-f">
+  <div class="w-full my-2">
     <el-button type="primary" class="mb-3" @click="add">新增学院信息</el-button>
+    <el-button type="warning" class="mb-3" @click="addAll">
+      批量新增学院
+    </el-button>
     <el-table
-      :data="appStore.getCategorys"
+      :data="tableData()"
       size="large"
       stripe
       border
@@ -18,10 +21,23 @@
         <el-button type="danger">删除</el-button>
       </el-table-column>
     </el-table>
+    <div class="my-2">
+      <el-pagination
+        :hide-on-single-page="true"
+        background
+        :page-size="10"
+        :page-sizes="[10]"
+        layout="prev, pager, next ,total,sizes"
+        :total="state.total"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { useAppStore } from '@/store/app'
@@ -53,5 +69,35 @@ const rowClick = (value: any, column: any) => {
   }
 }
 
+const state = ref({
+  page: 1,
+  limit: 10,
+  total: appStore.getCategorys.length,
+})
+//前端限制分页（tableData为当前展示页表格）
+const tableData = () => {
+  return appStore.getCategorys.filter(
+    (_, index) =>
+      index < state.value.page * state.value.limit &&
+      index >= state.value.limit * (state.value.page - 1)
+  )
+}
+
+watch(
+  () => appStore.getCategorys,
+  (value: any[]) => {
+    state.value.total = value.length
+  }
+)
+//改变页码
+const handleCurrentChange = (e: any) => {
+  state.value.page = e
+}
+//改变页数限制
+const handleSizeChange = (e: any) => {
+  state.value.limit = e
+}
+
 const add = () => router.push('add-category')
+const addAll = () => router.push('add-category-list')
 </script>

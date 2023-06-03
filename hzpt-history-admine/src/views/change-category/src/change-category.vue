@@ -3,9 +3,7 @@
     <el-form-item label="学院名称：">
       <el-input v-model="form.name" />
     </el-form-item>
-    <el-form-item label="英文缩写：">
-      <el-input v-model="form.urlname" />
-    </el-form-item>
+
     <el-form-item>
       <el-button type="primary" @click="onSubmit">修改</el-button>
     </el-form-item>
@@ -19,7 +17,7 @@ import { useRouter } from 'vue-router'
 import { useAppStore } from '@/store/app'
 import { Category } from '@/constants'
 const router = useRouter()
-const form = ref<Category>({ id: '', name: '', urlname: '' })
+const form = ref<Category>({ id: '', name: '' })
 
 const appStore = useAppStore()
 onMounted(() => {

@@ -1,8 +1,6 @@
 export interface Category {
-  col?: number
   id?: string
   name: string
-  urlname?: string
 }
 
 export interface Info {
