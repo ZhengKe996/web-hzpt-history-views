@@ -61,6 +61,11 @@ const onSubmit = async () => {
       message: '修改学院信息成功',
       type: 'success',
     })
+    setTimeout(() => {
+      appStore.useInfoData()
+      appStore.useCategoryData()
+      appStore.useIndexesData()
+    }, 500)
     router.back()
   } else {
     ElMessage({

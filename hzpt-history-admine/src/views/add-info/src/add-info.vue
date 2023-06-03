@@ -6,7 +6,7 @@
           class="avatar-uploader"
           :action="'api/set/upload-image'"
           :show-file-list="false"
-          :on-success="handleAvatarSuccess"
+          :on-success="handleSuccess"
           :before-upload="beforeImageUpload"
         >
           <img v-if="form.photo" :src="form.photo" class="avatar" />
@@ -83,8 +83,11 @@ const onSubmit = async () => {
         message: '新增学院成功',
         type: 'success',
       })
-      appStore.useInfoData()
-      appStore.useIndexesData()
+      setTimeout(() => {
+        appStore.useInfoData()
+        appStore.useCategoryData()
+        appStore.useIndexesData()
+      }, 500)
     } else {
       ElMessage({
         message: '失败，请检查网络',
@@ -98,7 +101,7 @@ const onSubmit = async () => {
   }
 }
 
-const handleAvatarSuccess = (response: any, file: any) => {
+const handleSuccess = (response: any, file: any) => {
   if (response.success) {
     form.value.photo = `/${response.data.imgUrl}`
     form.value.photoDownLink = `/${response.data.imgUrl}`

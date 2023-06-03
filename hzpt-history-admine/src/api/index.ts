@@ -109,6 +109,6 @@ export const deleteInfoByone = (id: string | number) => {
  *
  * @returns 设置信息（列表）
  */
-export const setInfoByLIst = (infos: Info[]) => {
+export const setInfoByList = (infos: Info[]) => {
   return Service({ method: 'POST', url: '/set/list-all', data: infos })
 }

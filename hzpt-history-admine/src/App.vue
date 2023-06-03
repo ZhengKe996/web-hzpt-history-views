@@ -61,9 +61,9 @@ onMounted(() => {
 
     .wrapper {
       background: #eef0f3;
-
-      padding: 20px;
       height: calc(100vh - 50px);
+      /* padding: 20px 20px 0px 20px; */
+      /* height: 100%; */
       .main-page {
         background-color: #fff;
         background-image: url('@/assets/images/login-bg.svg');

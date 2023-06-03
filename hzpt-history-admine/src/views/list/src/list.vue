@@ -3,9 +3,12 @@
     <el-row class="w-full">
       <Menus :width="4" :indexes="appStore.getIndexes" @on-click="itemClick" />
       <el-col :span="20">
-        <el-button type="primary" class="mb-2" @click="add"
-          >新增毕业照信息</el-button
-        >
+        <el-button type="primary" class="mb-2" @click="add">
+          新增毕业照信息
+        </el-button>
+        <el-button type="warning" class="mb-2" @click="addAll">
+          批量新增信息
+        </el-button>
         <el-table
           :data="tableData()"
           size="large"
@@ -161,4 +164,5 @@ const handleSizeChange = (e: any) => {
 }
 
 const add = () => router.push('add-info')
+const addAll = () => router.push('add-info-list')
 </script>
