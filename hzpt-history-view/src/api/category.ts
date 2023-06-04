@@ -5,7 +5,7 @@ import Service from '@/utils/request'
  * @returns 获取学院列表
  */
 export const getCategory = () => {
-  return Service({ url: '/category' })
+  return Service({ url: '/indexes' })
 }
 
 /**

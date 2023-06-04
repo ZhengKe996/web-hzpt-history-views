@@ -62,7 +62,7 @@ const getInfoData = async () => {
   if (isFinished.value) return
 
   // 完成了第一次请求后，后续的请求让page自增
-  if (infolList.value.length) {
+  if (infolList.value.length > 0) {
     query.page += 1
   }
 
@@ -76,8 +76,7 @@ const getInfoData = async () => {
   }
 
   // 判断数据是否全部加载完成
-  if (!data.length) {
-    loading.value = false
+  if (data.length <= 0) {
     isFinished.value = true
   }
 
@@ -92,7 +91,7 @@ const resetQuery = (newQuery: any) => {
   query = { ...query, ...newQuery }
   // 重置状态
   isFinished.value = false
-  infolList.value = []
+  loading.value = true
 }
 
 /**
@@ -101,11 +100,19 @@ const resetQuery = (newQuery: any) => {
 watch(
   () => appStore.getCurrentCategory,
   (currentCategory) => {
+    infolList.value = []
     // 重置请求参数
-    resetQuery({
-      page: 1,
-      category: currentCategory.name,
-    })
+    if (currentCategory.category == '全部') {
+      resetQuery({
+        page: 1,
+        category: '',
+      })
+    } else {
+      resetQuery({
+        page: 1,
+        category: currentCategory.category,
+      })
+    }
   }
 )
 

@@ -12,7 +12,7 @@
         v-lazy
         ref="imgTarget"
         class="w-full rounded bg-transparent"
-        :src="info.photo"
+        :src="`http://127.0.0.1:7001${info.photo}`"
         :style="{
           height: (width! / info.photoWidth) * info.photoHeight + 'px',
         }"
@@ -59,7 +59,6 @@
     </p>
     <!-- 作者 -->
     <div class="flex items-center mt-1 px-1">
-      <!-- <img v-lazy class="h-2 w-2 rounded-full" :src="info.avatar" alt="" /> -->
       <span class="text-sm text-zinc-500 ml-1">{{ info.category }}</span>
     </div>
   </div>

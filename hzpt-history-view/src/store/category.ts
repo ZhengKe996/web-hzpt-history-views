@@ -36,7 +36,7 @@ export const useCategorysStore = defineStore({
     },
     getCurrentCategoryIndex(): number {
       return this.getCategorys.findIndex((item: Category) => {
-        return item.urlname === appStore.currentCategory.urlname
+        return item.category === appStore.currentCategory.category
       })
     },
   },

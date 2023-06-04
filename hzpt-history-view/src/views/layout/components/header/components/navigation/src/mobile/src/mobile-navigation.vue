@@ -25,11 +25,11 @@
           ' text-zinc-100': categorysStore.getCurrentCategoryIndex === index,
         }"
         v-for="(item, index) in categorysStore.categorys"
-        :key="item.id"
+        :key="item.category"
         :ref="setItemRef"
         @click="onItemClick(item)"
       >
-        {{ item.name }}
+        {{ item.category }}
       </li>
     </ul>
 

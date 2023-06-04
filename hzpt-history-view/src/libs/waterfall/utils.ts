@@ -27,7 +27,7 @@ export const onComplateImgs = (imgs: string[]) => {
 
   // 循环 imgs 构建 promiseAll
   imgs.forEach((img, index) => {
-    promiseAll[index] = new Promise((resolve, reject) => {
+    promiseAll[index] = new Promise((resolve, _) => {
       // 处理 img 的加载情况
       const imageObj = new Image()
       imageObj.src = img

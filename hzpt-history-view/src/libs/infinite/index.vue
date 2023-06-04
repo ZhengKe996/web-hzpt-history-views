@@ -4,7 +4,7 @@
     <div ref="loadingTarget" class="h-6 py-4">
       <!-- 加载更多 -->
       <m-svg-icon
-        v-show="loading"
+        v-if="loading"
         class="w-4 h-4 mx-auto animate-spin"
         name="infinite-load"
       >
