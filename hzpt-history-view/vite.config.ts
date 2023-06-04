@@ -5,6 +5,10 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base:
+    process.env.NODE_ENV === 'production'
+      ? 'http://127.0.0.1:7001/public/views/'
+      : '/',
   plugins: [
     vue(),
     createSvgIconsPlugin({

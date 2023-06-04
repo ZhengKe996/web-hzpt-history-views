@@ -15,7 +15,8 @@
     "gsap": "^3.11.5",
     "pinia": "^2.0.36",
     "vue": "^3.2.47",
-    "vue-router": "^4.2.0"
+    "vue-router": "^4.2.0",
+    "vue3-image-preview": "^0.2.6"
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.5",
