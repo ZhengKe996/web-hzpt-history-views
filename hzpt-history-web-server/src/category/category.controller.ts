@@ -18,7 +18,6 @@ export class CategoryController {
   @Post('/set/category')
   async create(@Body() createCategoryDto: CreateCategoryDto) {
     try {
-      createCategoryDto.col = 1;
       const res = await this.categoryService.create(createCategoryDto);
       if (res.generatedMaps.length <= 0) {
         throw new Error();
@@ -39,7 +38,6 @@ export class CategoryController {
   async createAll(@Body() createCategoryDto: CreateCategoryDto[]) {
     try {
       createCategoryDto.forEach(async (item) => {
-        item.col = 1;
         const { generatedMaps } = await this.categoryService.create(item);
         if (generatedMaps.length <= 0) {
           new Error();

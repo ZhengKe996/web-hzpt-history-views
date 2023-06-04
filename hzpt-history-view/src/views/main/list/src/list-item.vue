@@ -12,7 +12,7 @@
         v-lazy
         ref="imgTarget"
         class="w-full rounded bg-transparent"
-        :src="`http://127.0.0.1:7001${info.photo}`"
+        :src="info.photo"
         :style="{
           height: (width! / info.photoWidth) * info.photoHeight + 'px',
         }"
@@ -22,7 +22,7 @@
         class="hidden opacity-0 w-full h-full bg-zinc-900/50 absolute top-0 left-0 rounded duration-300 group-hover:opacity-100 xl:block"
       >
         <!-- 分享 -->
-        <m-button class="absolute top-1.5 left-1.5">分享</m-button>
+        <!-- <m-button class="absolute top-1.5 left-1.5">分享</m-button> -->
 
         <!-- 点赞 -->
         <m-button

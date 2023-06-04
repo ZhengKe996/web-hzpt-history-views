@@ -10,9 +10,7 @@ import {
 @Entity('category')
 export class Category {
   @PrimaryGeneratedColumn() id: number;
-  @Column() name: string;
-  @Column() col: number;
-  @Column() urlname: string;
+  @Column() category: string;
 
   @CreateDateColumn({
     name: 'create_time',

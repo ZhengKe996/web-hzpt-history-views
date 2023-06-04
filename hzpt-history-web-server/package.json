@@ -27,6 +27,7 @@
     "@nestjs/typeorm": "^9.0.1",
     "@types/ali-oss": "^6.16.7",
     "ali-oss": "^6.17.1",
+    "axios": "^1.4.0",
     "mysql2": "^3.3.1",
     "nuid": "^1.1.6",
     "reflect-metadata": "^0.1.13",

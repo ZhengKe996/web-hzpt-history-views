@@ -20,7 +20,6 @@ export class ListController {
   @Post('/set/list')
   async create(@Body() createListDto: CreateListDto) {
     try {
-      createListDto.panelimgurl = '';
       const res = await this.listService.create(createListDto);
       if (res.generatedMaps.length > 0) {
         return {
@@ -37,13 +36,14 @@ export class ListController {
   async createAll(@Body() createLists: CreateListDto[]) {
     try {
       createLists.forEach(async (item) => {
-        item.panelimgurl = '';
-        const { generatedMaps } = await this.listService.create(item);
-        if (generatedMaps.length <= 0) {
-          return {
-            success: false,
-            message: 'Error',
-          };
+        if (item.category && item.classname && item.grade && item.photo) {
+          const { generatedMaps } = await this.listService.create(item);
+          if (generatedMaps.length <= 0) {
+            return {
+              success: false,
+              message: 'Error',
+            };
+          }
         }
       });
       return {

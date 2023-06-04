@@ -12,7 +12,7 @@
       {{ infoData && infoData.classname }}
       <template #right>
         <m-svg-icon
-          name="share"
+          name="heart"
           class="w-3 h-3"
           fillClass="fill-zinc-900 dark:fill-zinc-200"
         ></m-svg-icon>
@@ -36,12 +36,6 @@
         class="xl:w-2/5 xl:h-full xl:bg-white xl:dark:bg-zinc-900 xl:rounded-tr-lg xl:rounded-br-lg xl:p-3"
       >
         <div v-if="!isMobileTerminal" class="flex justify-between mb-2">
-          <m-svg-icon
-            name="share"
-            class="w-4 h-4 p-1 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-800 duration-300 rounded"
-            fillClass="fill-zinc-900 dark:fill-zinc-200"
-          ></m-svg-icon>
-
           <m-button
             class=""
             type="info"
@@ -57,12 +51,6 @@
         </p>
         <!-- 作者 -->
         <div class="flex items-center mt-1 px-1">
-          <!-- <img
-            v-lazy
-            class="h-3 w-3 rounded-full"
-            :src="infoData && infoData.avatar"
-            alt=""
-          /> -->
           <span class="text-base text-zinc-900 dark:text-zinc-200 ml-1">{{
             infoData && infoData.category
           }}</span>
@@ -74,6 +62,15 @@
             infoData && infoData.description
           }}</span>
         </div>
+
+        <!-- 名单 -->
+        <div class="flex items-center mt-1 px-1">
+          <img
+            v-if="infoData?.panelimgurl"
+            v-preview
+            :src="infoData && infoData.panelimgurl"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -82,7 +79,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-// import { useAppStore } from '@/store/app'
 import { getInfoFromId } from '@/api/list'
 import { Info } from '@/constants'
 import { isMobileTerminal } from '@/utils/flexible'

@@ -10,9 +10,10 @@
       <el-carousel-item v-for="item in appStore.getList" :key="item">
         <img
           v-lazy
+          v-preview
           class="h-full"
           v-if="item.photo"
-          :src="`http://127.0.0.1:7001${item.photo}`"
+          :src="item.photo"
         />
       </el-carousel-item>
     </el-carousel>
