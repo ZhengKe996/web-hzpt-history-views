@@ -17,7 +17,6 @@
           :action="'api/set/upload-image'"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
-          :before-upload="beforeImageUpload"
         >
           <img v-if="form.photo" :src="form.photo" class="avatar" />
           <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
@@ -79,9 +78,23 @@ onMounted(() => {
 })
 const handleAvatarSuccess = (response: any, file: any) => {
   if (response.success) {
-    form.value.photo = `http://127.0.0.1:7001/${response.data.imgUrl}`
-    form.value.photoDownLink = `http://127.0.0.1:7001/${response.data.imgUrl}`
+    form.value.photo = `/${response.data.imgUrl}`
+    form.value.photoDownLink = `/${response.data.imgUrl}`
     form.value.description = file.name
+
+    if (file.raw.type == 'image/jpeg') {
+      let reader = new FileReader()
+      reader.onload = function (event: any) {
+        let txt = event.target.result
+        let img = document.createElement('img')
+        img.src = txt
+        img.onload = function () {
+          form.value.photoWidth = img.width
+          form.value.photoHeight = img.height
+        }
+      }
+      reader.readAsDataURL(file.raw)
+    }
 
     ElMessage({
       message: '图片上传成功',
@@ -95,21 +108,6 @@ const handleAvatarSuccess = (response: any, file: any) => {
   }
 }
 
-const beforeImageUpload = (rawFile: any) => {
-  if (rawFile.type == 'image/jpeg') {
-    let reader = new FileReader()
-    reader.onload = function (event: any) {
-      let txt = event.target.result
-      let img = document.createElement('img')
-      img.src = txt
-      img.onload = function () {
-        form.value.photoWidth = img.width
-        form.value.photoHeight = img.height
-      }
-    }
-    reader.readAsDataURL(rawFile)
-  }
-}
 let cascaders = ref<any[]>([])
 onMounted(() => {
   appStore.getCategorys.forEach((item) => {

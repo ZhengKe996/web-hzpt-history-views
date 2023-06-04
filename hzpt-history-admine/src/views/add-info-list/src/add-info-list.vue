@@ -16,7 +16,6 @@
               :action="'api/set/upload-image'"
               :show-file-list="false"
               :on-success="handleSuccess"
-              :before-upload="beforeImageUpload"
               :data="{ id: index }"
             >
               <img v-if="item.photo" :src="item.photo" class="avatar" />
@@ -77,10 +76,10 @@ const state = ref<Info[]>([
     panelimgurl: '',
   },
 ])
-let index = 0
+
 const handleSuccess = (response: any, file: any) => {
   if (response.success) {
-    index = response.data.index
+    const index = response.data.index
     state.value[index].photo = `/${response.data.imgUrl}`
     state.value[index].photoDownLink = `/${response.data.imgUrl}`
     state.value[index].description = file.name.split('.')[0]
@@ -90,6 +89,23 @@ const handleSuccess = (response: any, file: any) => {
         .match(/\d+(\.\d+)?/g)[0]
         .slice(0, 2)}`
     }
+
+    if (file.raw.type == 'image/jpeg') {
+      let reader = new FileReader()
+      reader.onload = function (event: any) {
+        let txt = event.target.result
+        let img = document.createElement('img')
+        img.src = txt
+        img.onload = function () {
+          console.log('width', img.width, 'height', img.height)
+          state.value[index].photoWidth = img.width
+          state.value[index].photoHeight = img.height
+          state.value[index].photoType = file.raw.type
+        }
+      }
+      reader.readAsDataURL(file.raw)
+    }
+
     ElMessage({
       message: '图片上传成功',
       type: 'success',
@@ -101,22 +117,7 @@ const handleSuccess = (response: any, file: any) => {
     })
   }
 }
-const beforeImageUpload = (rawFile: any) => {
-  if (rawFile.type == 'image/jpeg') {
-    let reader = new FileReader()
-    reader.onload = function (event: any) {
-      let txt = event.target.result
-      let img = document.createElement('img')
-      img.src = txt
-      img.onload = function () {
-        state.value[index].photoWidth = img.width
-        state.value[index].photoHeight = img.height
-        state.value[index].photoType = 'image/jpeg'
-      }
-    }
-    reader.readAsDataURL(rawFile)
-  }
-}
+
 const onSubmit = async () => {
   let isNull = false
   state.value.forEach(async (item) => {
