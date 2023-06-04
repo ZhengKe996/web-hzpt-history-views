@@ -37,6 +37,14 @@
               </div>
             </template>
           </el-table-column>
+
+          <el-table-column align="center" label="名单">
+            <template #default="scope">
+              <div class="w-16 h-8 m-0 p-0 mx-auto">
+                <img v-preview :src="scope.row.panelimgurl" />
+              </div>
+            </template>
+          </el-table-column>
           <el-table-column
             prop="classname"
             label="班级"
