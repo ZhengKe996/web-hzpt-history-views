@@ -11,17 +11,31 @@
       <el-form-item label="班级名称：">
         <el-input v-model="form.classname" />
       </el-form-item>
-      <el-form-item label="毕业照：">
-        <el-upload
-          class="avatar-uploader"
-          :action="'api/set/upload-image'"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-        >
-          <img v-if="form.photo" :src="form.photo" class="avatar" />
-          <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-        </el-upload>
-      </el-form-item>
+      <div class="flex">
+        <el-form-item label="毕业照：">
+          <el-upload
+            class="avatar-uploader"
+            :action="'api/set/upload-image'"
+            :show-file-list="false"
+            :on-success="handleSuccess"
+          >
+            <img v-if="form.photo" :src="form.photo" class="avatar" />
+            <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+          </el-upload>
+        </el-form-item>
+
+        <el-form-item label="名单">
+          <el-upload
+            class="avatar-uploader"
+            :action="'api/set/upload-image'"
+            :show-file-list="false"
+            :on-success="handleRollSuccess"
+          >
+            <img v-if="form.photo" :src="form.photo" class="avatar" />
+            <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+          </el-upload>
+        </el-form-item>
+      </div>
       <el-form-item label="描述信息：">
         <el-input type="textarea" :rows="2" v-model="form.description" />
       </el-form-item>
@@ -76,7 +90,7 @@ const onSubmit = async () => {
 onMounted(() => {
   form.value = appStore.getChangeInfo
 })
-const handleAvatarSuccess = (response: any, file: any) => {
+const handleSuccess = (response: any, file: any) => {
   if (response.success) {
     form.value.photo = `/${response.data.imgUrl}`
     form.value.photoDownLink = `/${response.data.imgUrl}`
@@ -98,6 +112,21 @@ const handleAvatarSuccess = (response: any, file: any) => {
 
     ElMessage({
       message: '图片上传成功',
+      type: 'success',
+    })
+  } else {
+    ElMessage({
+      message: '失败，请检查网络',
+      type: 'warning',
+    })
+  }
+}
+
+const handleRollSuccess = (response: any) => {
+  if (response.success) {
+    form.value.panelimgurl = `/${response.data.imgUrl}`
+    ElMessage({
+      message: '名单上传成功',
       type: 'success',
     })
   } else {
