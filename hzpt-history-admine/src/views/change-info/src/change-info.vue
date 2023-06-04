@@ -31,7 +31,11 @@
             :show-file-list="false"
             :on-success="handleRollSuccess"
           >
-            <img v-if="form.photo" :src="form.photo" class="avatar" />
+            <img
+              v-if="form.panelimgurl"
+              :src="form.panelimgurl"
+              class="avatar"
+            />
             <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
           </el-upload>
         </el-form-item>

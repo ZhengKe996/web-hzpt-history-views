@@ -32,7 +32,11 @@
                 :on-success="handleRollSuccess"
                 :data="{ id: index }"
               >
-                <img v-if="item.photo" :src="item.photo" class="avatar" />
+                <img
+                  v-if="item.panelimgurl"
+                  :src="item.panelimgurl"
+                  class="avatar"
+                />
                 <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
               </el-upload>
             </el-form-item>
@@ -95,7 +99,7 @@ const state = ref<Info[]>([
 const handleSuccess = (response: any, file: any) => {
   if (response.success) {
     const index = response.data.index
-    state.value[index].photo = `/${response.data.imgUrl}`
+    state.value[index].photo = `http://127.0.0.1:7001/${response.data.imgUrl}`
     state.value[index].photoDownLink = `/${response.data.imgUrl}`
     state.value[index].description = file.name.split('.')[0]
     state.value[index].classname = file.name.split('.')[0]
@@ -135,7 +139,9 @@ const handleSuccess = (response: any, file: any) => {
 
 const handleRollSuccess = (response: any) => {
   if (response.success) {
-    state.value[response.data.index].panelimgurl = `/${response.data.imgUrl}`
+    state.value[
+      response.data.index
+    ].panelimgurl = `http://127.0.0.1:7001/${response.data.imgUrl}`
     ElMessage({
       message: '名单上传成功',
       type: 'success',
