@@ -71,8 +71,10 @@ const getInfoData = async () => {
 
   if (query.page === 1) {
     infolList.value = data
+    appStore.changeList(data)
   } else {
     infolList.value.push(...data)
+    appStore.pushList(data)
   }
 
   // 判断数据是否全部加载完成
@@ -101,6 +103,7 @@ watch(
   () => appStore.getCurrentCategory,
   (currentCategory) => {
     infolList.value = []
+    appStore.changeList([])
     // 重置请求参数
     if (currentCategory.category == '全部') {
       resetQuery({

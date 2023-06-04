@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia'
-import { ALL_CATEGORY_ITEM, Category, Grade, ALL_Grade_ITEM } from '@/constants'
+import { ALL_CATEGORY_ITEM, Category, Info } from '@/constants'
 import { THEME_LIGHT, THEME_DARK, THEME_SYSTEM } from '@/constants'
 
 export interface AppState {
   // 当前选中的分类
   currentCategory: Category
   themeType: typeof THEME_LIGHT | typeof THEME_DARK | typeof THEME_SYSTEM
-  currentGrade: Grade
+  currentGrade: string
+  list: Info[]
 }
 
 export const useAppStore = defineStore({
@@ -15,14 +16,15 @@ export const useAppStore = defineStore({
     return {
       currentCategory: ALL_CATEGORY_ITEM,
       themeType: THEME_LIGHT,
-      currentGrade: ALL_Grade_ITEM,
+      currentGrade: '',
+      list: [],
     }
   },
   getters: {
     getCurrentCategory(): Category {
       return this.currentCategory
     },
-    getCurrentGrade(): Grade {
+    getCurrentGrade(): string {
       return this.currentGrade
     },
     getThemeType():
@@ -31,18 +33,27 @@ export const useAppStore = defineStore({
       | typeof THEME_SYSTEM {
       return this.themeType
     },
+    getList(): Info[] {
+      return this.list
+    },
   },
   actions: {
     changeCurrentCategory(newCategory: Category) {
       this.currentCategory = newCategory
     },
-    changeCurrentGrade(newGrade: Grade) {
+    changeCurrentGrade(newGrade: string) {
       this.currentGrade = newGrade
     },
     changeThemeType(
       newTheme: typeof THEME_LIGHT | typeof THEME_DARK | typeof THEME_SYSTEM
     ) {
       this.themeType = newTheme
+    },
+    changeList(newList: Info[]) {
+      this.list = newList
+    },
+    pushList(newList: Info[]) {
+      this.list = [...newList]
     },
   },
 })

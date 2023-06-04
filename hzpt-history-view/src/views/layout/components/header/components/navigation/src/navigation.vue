@@ -12,8 +12,5 @@ import { useCategorysStore } from '@/store/category'
 
 const categorysStore = useCategorysStore()
 
-onMounted(() => {
-  categorysStore.useCategoryData()
-  categorysStore.useGradeData()
-})
+onMounted(() => categorysStore.useCategoryData())
 </script>

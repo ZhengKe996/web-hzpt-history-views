@@ -1,11 +1,6 @@
 import { defineStore } from 'pinia'
-import {
-  ALL_CATEGORY_ITEM,
-  Category,
-  Grade,
-  CATEGORY_NOMAR_DATA,
-} from '@/constants'
-import { getCategory, getGrade } from '@/api/category'
+import { ALL_CATEGORY_ITEM, Category, CATEGORY_NOMAR_DATA } from '@/constants'
+import { getCategory } from '@/api/category'
 import { useAppStore } from './app'
 const appStore = useAppStore()
 /**
@@ -13,7 +8,6 @@ const appStore = useAppStore()
  */
 export interface CategoryState {
   categorys: Category[]
-  grades: Grade[]
 }
 
 export const useCategorysStore = defineStore({
@@ -21,7 +15,6 @@ export const useCategorysStore = defineStore({
   state: (): CategoryState => {
     return {
       categorys: CATEGORY_NOMAR_DATA,
-      grades: [],
     }
   },
   getters: {
@@ -31,8 +24,14 @@ export const useCategorysStore = defineStore({
     getCategorys(): any[] {
       return this.categorys
     },
-    getGrades(): Grade[] {
-      return this.grades
+    getGrades(): string[] {
+      let grades: string[] = []
+      this.getCategorys.findIndex((item: Category) => {
+        if (item.category === appStore.currentCategory.category) {
+          grades = item.grades
+        }
+      })
+      return grades
     },
     getCurrentCategoryIndex(): number {
       return this.getCategorys.findIndex((item: Category) => {
@@ -45,15 +44,8 @@ export const useCategorysStore = defineStore({
       const { data } = await getCategory()
       this.setCategorys(data)
     },
-    async useGradeData() {
-      const { data } = await getGrade()
-      this.setGrades(data)
-    },
     setCategorys(newCategorys: any[]) {
       this.categorys = [ALL_CATEGORY_ITEM, ...newCategorys]
-    },
-    setGrades(grades: any[]) {
-      this.grades = [...grades]
     },
   },
 })

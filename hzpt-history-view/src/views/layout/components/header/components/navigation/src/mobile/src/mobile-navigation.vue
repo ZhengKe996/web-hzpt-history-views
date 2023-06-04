@@ -45,7 +45,7 @@
 <script setup lang="ts">
 import { ref, onBeforeUpdate, watch } from 'vue'
 import { useScroll } from '@vueuse/core'
-import { Category, Grade } from '@/constants'
+import { Category } from '@/constants'
 import { useCategorysStore } from '@/store/category'
 import { useAppStore } from '@/store/app'
 import MobileMenu from '@/views/main/menu'
@@ -61,7 +61,7 @@ const sliderStyle = ref({
 
 const onItemClick = (item: Category) => appStore.changeCurrentCategory(item)
 
-const onItemClick2 = (item: Grade) => appStore.changeCurrentGrade(item)
+const onItemClick2 = (item: string) => appStore.changeCurrentGrade(item)
 
 onBeforeUpdate(() => {
   itemRefs = []

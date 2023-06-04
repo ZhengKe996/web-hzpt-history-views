@@ -11,6 +11,7 @@ export const PC_DEVICE_WIDTH: number = 1280
  */
 export interface Category {
   category: string
+  grades: string[]
 }
 
 export interface Info {
@@ -31,14 +32,6 @@ export interface Info {
 }
 
 /**
- * @description Grade 类型
- */
-export interface Grade {
-  id: string
-  grade: string
-}
-
-/**
  * @description 主题类型
  */
 export interface ThemeType {
@@ -51,11 +44,7 @@ export interface ThemeType {
 // category 的本地构建数据
 export const ALL_CATEGORY_ITEM = {
   category: '全部',
-}
-
-export const ALL_Grade_ITEM = {
-  id: '',
-  grade: '全部',
+  grades: [],
 }
 
 // 初始 category 数据
