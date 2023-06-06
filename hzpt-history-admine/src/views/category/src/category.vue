@@ -13,7 +13,12 @@
       @cell-click="rowClick"
     >
       <el-table-column prop="id" label="ID" align="center" width="80" />
-      <el-table-column prop="name" label="Name" align="center" class="w-full" />
+      <el-table-column
+        prop="category"
+        label="Name"
+        align="center"
+        class="w-full"
+      />
       <el-table-column label="Change" align="center" width="120">
         <el-button type="warning">修改</el-button>
       </el-table-column>
