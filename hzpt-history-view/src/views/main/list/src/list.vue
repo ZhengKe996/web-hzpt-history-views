@@ -125,7 +125,8 @@ watch(
 watch(
   () => appStore.getCurrentGrade,
   (currentGrade) => {
-    // 重置请求参数
+    infolList.value = []
+    // // 重置请求参数
     resetQuery({
       page: 1,
       grade: currentGrade,
