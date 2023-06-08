@@ -109,11 +109,13 @@ watch(
       resetQuery({
         page: 1,
         category: '',
+        grade: '',
       })
     } else {
       resetQuery({
         page: 1,
         category: currentCategory.category,
+        grade: '',
       })
     }
   }
