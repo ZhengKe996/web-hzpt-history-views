@@ -2,7 +2,7 @@
   <div class="w-full">
     <el-form :model="form" label-width="120px">
       <el-form-item label="学院名称：">
-        <el-input v-model="form.name" />
+        <el-input v-model="form.category" />
       </el-form-item>
 
       <el-form-item>
@@ -21,7 +21,7 @@ import { setCategory } from '@/api'
 import { Category } from '@/constants'
 const router = useRouter()
 const appStore = useAppStore()
-const form = ref<Category>({ name: '' })
+const form = ref<Category>({ category: '' })
 
 const onSubmit = async () => {
   const res = await setCategory(form.value)

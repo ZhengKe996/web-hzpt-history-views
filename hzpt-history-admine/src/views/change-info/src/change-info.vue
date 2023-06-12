@@ -144,7 +144,7 @@ const handleRollSuccess = (response: any) => {
 let cascaders = ref<any[]>([])
 onMounted(() => {
   appStore.getCategorys.forEach((item) => {
-    cascaders.value.push({ value: item.name, label: item.name })
+    cascaders.value.push({ value: item.category, label: item.category })
   })
 })
 </script>

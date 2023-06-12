@@ -26,7 +26,7 @@ export const useAppStore = defineStore({
       infoLists: [],
       indexes: [],
       changeCategory: {
-        name: '',
+        category: '',
       },
       changeInfo: {
         id: 0,

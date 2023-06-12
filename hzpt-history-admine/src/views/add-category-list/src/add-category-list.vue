@@ -9,7 +9,7 @@
         class="my-2 border-b border-zinc-200 border-dashed shadow-sm"
       >
         <el-form-item class="my-auto" label="学院名称：">
-          <el-input v-model="item.name" />
+          <el-input v-model="item.category" />
         </el-form-item>
       </div>
 
@@ -30,7 +30,7 @@ import { useAppStore } from '@/store/app'
 
 const router = useRouter()
 const appStore = useAppStore()
-const state = ref<Category[]>([{ name: '' }])
+const state = ref<Category[]>([{ category: '' }])
 const onSubmit = async () => {
   if (state.value.length > 1) {
     const res = await setCategorys(state.value)
@@ -52,7 +52,7 @@ const onSubmit = async () => {
   }
 }
 // 新增行
-const add = () => state.value.push({ name: '' })
+const add = () => state.value.push({ category: '' })
 
 // 删除最后一行
 const remove = () => {

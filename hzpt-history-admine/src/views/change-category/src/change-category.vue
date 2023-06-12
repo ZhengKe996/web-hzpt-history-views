@@ -1,7 +1,7 @@
 <template>
   <el-form :model="form" label-width="120px">
     <el-form-item label="学院名称：">
-      <el-input v-model="form.name" />
+      <el-input v-model="form.category" />
     </el-form-item>
 
     <el-form-item>
@@ -17,7 +17,7 @@ import { useRouter } from 'vue-router'
 import { useAppStore } from '@/store/app'
 import { Category } from '@/constants'
 const router = useRouter()
-const form = ref<Category>({ id: '', name: '' })
+const form = ref<Category>({ id: '', category: '' })
 
 const appStore = useAppStore()
 onMounted(() => {
